@@ -24,5 +24,7 @@
     <string name="choice_language">Choose a language</string>
     <string name="system">System</string>
     <string name="fault">Fault</string>
+    <string name="test">OBD/Test device</string>
+    <string name="choice_test">Choice device type</string>
 </resources>
 

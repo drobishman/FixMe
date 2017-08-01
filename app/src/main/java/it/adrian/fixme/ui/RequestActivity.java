@@ -6,10 +6,10 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,6 +29,7 @@ import java.util.Set;
 
 import it.adrian.fixme.R;
 import it.adrian.fixme.tb.BTDeviceHelper;
+import it.adrian.fixme.obd.ObdHelper;
 
 public class RequestActivity extends AppCompatActivity {
 
@@ -40,6 +41,9 @@ public class RequestActivity extends AppCompatActivity {
     private Spinner deviceSpinner;
     private Spinner languageSpinner;
     private BTDeviceHelper btDeviceHelper;
+    private Boolean test = false;
+    private ObdHelper obdHelper;
+    private Spinner deviceTestSpinner;
 
     private String chosenDevice;
     private String chosenLanguage;
@@ -73,7 +77,14 @@ public class RequestActivity extends AppCompatActivity {
         setContentView(R.layout.activity_request);
         c = this.getApplicationContext();
 
-        int bluetoothStatus = BTDeviceHelper.checkBluetoothEnabled();
+        int bluetoothStatus;
+
+        if(!test)
+            bluetoothStatus = ObdHelper.checkBluetoothEnabled();
+
+        else
+            bluetoothStatus = BTDeviceHelper.checkBluetoothEnabled();
+
         if (bluetoothStatus == -1) {
             Log.d(TAG, "No BT support.");
         } else if (bluetoothStatus == 0) {
@@ -97,10 +108,20 @@ public class RequestActivity extends AppCompatActivity {
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         deviceSpinner = (Spinner) findViewById(R.id.device_spinner);
         languageSpinner = (Spinner) findViewById(R.id.language_spinner);
-        if (BTDeviceHelper.checkBluetoothEnabled() == 1) {
-            populateDeviceSpinner();
-        }
+        deviceTestSpinner = (Spinner) findViewById(R.id.device_test_spinner);
 
+        populateTestSpinner();
+
+        if(!test){
+            if (ObdHelper.checkBluetoothEnabled() == 1) {
+                populateDeviceSpinner();
+            }
+        }else {
+
+            if (BTDeviceHelper.checkBluetoothEnabled() == 1) {
+                populateDeviceSpinner();
+            }
+        }
         populateLanguageSpinner();
         languageSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -118,16 +139,27 @@ public class RequestActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 sendBtn.setEnabled(false);
-                btDeviceHelper = new BTDeviceHelper(mHandler, RequestActivity.this);
-                progressBar.setProgress(0);
-                btDeviceHelper.connectToDevice();
+                if(!test) {
+                    obdHelper = new ObdHelper(mHandler, RequestActivity.this);
+                    progressBar.setProgress(0);
+                    obdHelper.connectToDevice();
+                }else {
+                    btDeviceHelper = new BTDeviceHelper(mHandler, RequestActivity.this);
+                    progressBar.setProgress(0);
+                    btDeviceHelper.connectToDevice();
+                }
+
             }
         });
     }
 
     private void populateDeviceSpinner() {
         List<BluetoothDevice> devices = new ArrayList<>();
-        Set<BluetoothDevice> deviceSet = BTDeviceHelper.getPairedDevice();
+        Set<BluetoothDevice> deviceSet;
+        if(!test) {
+            deviceSet = ObdHelper.getPairedDevice();
+        }else
+            deviceSet = BTDeviceHelper.getPairedDevice();
         devices.addAll(deviceSet);
         final MyArrayAdapter deviceAdapter = new MyArrayAdapter(this, android.R.layout.simple_list_item_1, devices);
         deviceSpinner.setAdapter(deviceAdapter);
@@ -142,6 +174,29 @@ public class RequestActivity extends AppCompatActivity {
             }
         });
     }
+
+    private void populateTestSpinner(){
+        List<String> testDevices = new ArrayList<>();
+        testDevices.add("OBD2");
+        testDevices.add("Android device");
+        final ArrayAdapter testDeviceAdapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, testDevices);
+        deviceTestSpinner.setAdapter(testDeviceAdapter);
+        deviceTestSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+                if(pos==1){
+                    test = true;
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+            }
+        });
+    }
+
+
 
     private class MyArrayAdapter extends ArrayAdapter {
         private MyArrayAdapter(Context context, int resource, List list) {
