@@ -21,7 +21,7 @@ import it.adrian.fixme.ui.ResponseActivity;
 
 /**
  * Created by Adrian on 19.07.2017.
- * TODO: adapt the code so the request to be done to dcvideo.go.ro:some port
+ * TODO: adapt the code so the request to be done to dcvideo.go.ro:8763/fixitweb/android/trouble_code-
  */
 
 public class ApiHelper extends Application {

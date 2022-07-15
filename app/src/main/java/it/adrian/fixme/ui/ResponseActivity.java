@@ -33,6 +33,8 @@ public class ResponseActivity extends AppCompatActivity {
             String[] dtcArray = dtcs.split("\\n");
             String language = getIntent().getExtras().getString("EXTRA_LANGUAGE");
             String vin = getIntent().getExtras().getString("EXTRA_VIN");
+
+            //TODO change with APi form local server
             ApiHelper api = new ApiHelper(c);
             api.getErrorCodeTranslation(dtcArray, vin , language);
         }else{
