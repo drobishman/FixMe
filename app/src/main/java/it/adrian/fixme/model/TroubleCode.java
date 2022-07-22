@@ -1,6 +1,8 @@
 package it.adrian.fixme.model;
 
-public class TroubleCode {
+import java.io.Serializable;
+
+public class TroubleCode implements Serializable {
 
     public String faultLocation;
     public String number;

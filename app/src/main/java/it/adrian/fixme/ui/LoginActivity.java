@@ -8,11 +8,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.io.Serializable;
+
 import it.adrian.fixme.R;
+import it.adrian.fixme.connection.UserLoginAsyncTask;
+import it.adrian.fixme.connection.UserLoginResponse;
+import it.adrian.fixme.model.User;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity implements UserLoginResponse {
 
-    private EditText ssoID;
+    private EditText ssoId;
     private EditText password;
     private Button btnSubmit;
     private Button btnGetTC;
@@ -27,7 +32,7 @@ public class LoginActivity extends AppCompatActivity {
 
     public void addListenerOnButton() {
 
-        ssoID = (EditText) findViewById(R.id.txt_ssoID);
+        ssoId = (EditText) findViewById(R.id.txt_ssoid);
         password = (EditText) findViewById(R.id.txt_password);
         btnSubmit = (Button) findViewById(R.id.btn_submit);
         btnGetTC = (Button) findViewById(R.id.btn_gettc);
@@ -37,8 +42,13 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Toast.makeText(LoginActivity.this, password.getText() + "" + ssoID.getText(),
+                Toast.makeText(LoginActivity.this, password.getText() + " " + ssoId.getText(),
                         Toast.LENGTH_SHORT).show();
+                Thread.currentThread().setContextClassLoader(getClass().getClassLoader());
+                UserLoginAsyncTask userLoginAsyncTask = new UserLoginAsyncTask(LoginActivity.this, ssoId.getText().toString(), password.getText().toString());
+                userLoginAsyncTask.response=LoginActivity.this;
+                userLoginAsyncTask.execute();
+
 
             }
 
@@ -53,5 +63,13 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    public void taskResult(User user) {
+
+        Intent myIntent = new Intent(LoginActivity.this, UserDetailsActivity.class);
+        myIntent.putExtra("key", user); //Optional parameters
+        LoginActivity.this.startActivity(myIntent);
     }
 }

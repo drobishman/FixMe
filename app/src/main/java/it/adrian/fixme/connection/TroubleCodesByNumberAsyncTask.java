@@ -25,7 +25,6 @@ public class TroubleCodesByNumberAsyncTask extends AsyncTask<String, String, Str
     private ResponseActivity activity;
     private String troubleCodeNumber;
     public TroubleCodesByCategoryResponse response = null;
-    private List<TroubleCode> troubleCodeList = new ArrayList<>();
 
     /**
      * default constructor method
