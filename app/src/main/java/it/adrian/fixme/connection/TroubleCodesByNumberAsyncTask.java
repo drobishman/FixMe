@@ -1,5 +1,7 @@
 package it.adrian.fixme.connection;
 
+import static android.content.ContentValues.TAG;
+
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -46,7 +48,9 @@ public class TroubleCodesByNumberAsyncTask extends AsyncTask<String, String, Str
     @Override
     protected String doInBackground(String... strings) {
 
-        String stringUrl = "dcvideo.go.ro:8763/fixitweb/android/trouble_code-"+ troubleCodeNumber +"";
+        String stringUrl = "http://dcvideo.go.ro:8763/fixitweb/android/troublecodebynumber-"+ troubleCodeNumber +"";
+
+        Log.d(TAG, "making get request:" + stringUrl);
 
         StringBuilder response = new StringBuilder();
         try {

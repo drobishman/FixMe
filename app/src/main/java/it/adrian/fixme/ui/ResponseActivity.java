@@ -3,15 +3,18 @@ package it.adrian.fixme.ui;
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import java.util.ArrayList;
 
-import it.adrian.fixme.api.ApiHelper;
 import it.adrian.fixme.R;
+import it.adrian.fixme.connection.TroubleCodesByCategoryResponse;
+import it.adrian.fixme.connection.TroubleCodesByNumberAsyncTask;
+import it.adrian.fixme.model.TroubleCode;
 
-public class ResponseActivity extends AppCompatActivity {
+public class ResponseActivity extends AppCompatActivity implements TroubleCodesByCategoryResponse {
 
     private static ArrayAdapter<String> adapter;
     private static ArrayList<String> itemList = new ArrayList<>();
@@ -34,9 +37,15 @@ public class ResponseActivity extends AppCompatActivity {
             String language = getIntent().getExtras().getString("EXTRA_LANGUAGE");
             String vin = getIntent().getExtras().getString("EXTRA_VIN");
 
-            //TODO change with APi form local server
-            ApiHelper api = new ApiHelper(c);
-            api.getErrorCodeTranslation(dtcArray, vin , language);
+            Log.d("DTCS", dtcs);
+
+            for (String dtc: dtcArray) {
+                Thread.currentThread().setContextClassLoader(getClass().getClassLoader());
+                TroubleCodesByNumberAsyncTask troubleCodesByNumberAsyncTask = new TroubleCodesByNumberAsyncTask(this, dtc);
+                troubleCodesByNumberAsyncTask.response=this;
+                troubleCodesByNumberAsyncTask.execute();
+            }
+
         }else{
             addListItem("No error codes received.");
         }
@@ -51,6 +60,9 @@ public class ResponseActivity extends AppCompatActivity {
         if(getSupportActionBar()!=null)
             getSupportActionBar().setTitle(R.string.translation_result);
         ListView listView = (ListView) findViewById(R.id.output);
+
+        Log.d("ItemList",itemList.toString());
+
         adapter = new ResultAdapter(this, itemList);
         listView.setAdapter(adapter);
         clearListView();
@@ -68,5 +80,11 @@ public class ResponseActivity extends AppCompatActivity {
 
     public Context getC() {
         return c;
+    }
+
+    @Override
+    public void taskResult(TroubleCode troubleCode) {
+        Log.d("TroubleCode = ",troubleCode.getNumber() + " \n " + troubleCode.getFaultLocation());
+        addListItem(troubleCode.getNumber() + " \n " + troubleCode.getFaultLocation());
     }
 }

@@ -22,6 +22,7 @@ import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.support.v7.app.AppCompatActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -107,7 +108,6 @@ public class RequestActivity extends AppCompatActivity {
         sendBtn = (Button) findViewById(R.id.button);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         deviceSpinner = (Spinner) findViewById(R.id.device_spinner);
-        languageSpinner = (Spinner) findViewById(R.id.language_spinner);
         deviceTestSpinner = (Spinner) findViewById(R.id.device_test_spinner);
 
         populateTestSpinner();
@@ -122,18 +122,6 @@ public class RequestActivity extends AppCompatActivity {
                 populateDeviceSpinner();
             }
         }
-        populateLanguageSpinner();
-        languageSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-                chosenLanguage = (String) parent.getItemAtPosition(pos);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
 
         sendBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -226,36 +214,14 @@ public class RequestActivity extends AppCompatActivity {
         }
     }
 
-    private void populateLanguageSpinner() {
-        String[] languages = {c.getString(R.string.english), c.getString(R.string.german)};
-        ArrayAdapter<String> languageAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, languages);
-        languageSpinner.setAdapter(languageAdapter);
-    }
-
     public String getChosenDevice() {
         return chosenDevice;
     }
 
-    private String getChosenLanguage() {
-        return chosenLanguage.toLowerCase();
-    }
-
-    private String getVin() {
-        EditText vinInputField = ((EditText) findViewById(R.id.vin_input));
-        if (vinInputField.getText().toString().equals(""))
-            return vinInputField.getHint().toString();
-        return vinInputField.getText().toString();
-    }
 
     public void startResultActivity(String dtcs) {
         Intent intent = new Intent(c, ResponseActivity.class);
         Bundle extras = new Bundle();
-
-        String language = getChosenLanguage();
-        extras.putString("EXTRA_LANGUAGE", language);
-
-        String vin = getVin();
-        extras.putString("EXTRA_VIN", vin);
 
         extras.putString("EXTRA_DTCS", dtcs);
         intent.putExtras(extras);

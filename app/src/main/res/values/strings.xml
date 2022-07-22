@@ -1,11 +1,15 @@
 <resources>
+    <string name="btn_gettc">Go to get Trouble Codes</string>
+    <string name="lblSsoID">Enter Your Username :</string>
+    <string name="lblPassword">Enter Your Password :</string>
+    <string name="btn_submit">Submit</string>
     <string name="app_name">FixMe</string>
     <string name="action">Action: </string>
     <string name="get_errors">Get error codes</string>
     <string name="obd_connection">OBD Connection: </string>
     <string name="bluetooth">Bluetooth</string>
     <string name="translator">Translator: </string>
-    <string name="hella_obd_api">Car Diagnostic API</string>
+    <string name="server_obd_api">Car Diagnostic API</string>
     <string name="german">German</string>
     <string name="english">English</string>
     <string name="vin">VIN: </string>

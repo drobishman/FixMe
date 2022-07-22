@@ -107,7 +107,6 @@ public class ObdHelper {
             //Get the current thread's token
             synchronized (this) {
                 Log.d(TAG, "Starting service..");
-                onProgressUpdate(1);
                 // get the remote Bluetooth device
                 final BluetoothAdapter btAdapter = BluetoothAdapter.getDefaultAdapter();
                 dev = btAdapter.getRemoteDevice(params[0]);
@@ -116,7 +115,6 @@ public class ObdHelper {
                 btAdapter.cancelDiscovery();
 
                 Log.d(TAG, "Starting OBD connection..");
-                onProgressUpdate(2);
                 BluetoothSocket sock;
                 // Instantiate a BluetoothSocket for the remote device and connect it.
                 try {
@@ -132,25 +130,14 @@ public class ObdHelper {
                     // Let's configure the connection.
                     Log.d(TAG, "Queueing jobs for connection configuration..");
 
-                    onProgressUpdate(3);
-
                     new ObdResetCommand().run(sock.getInputStream(), sock.getOutputStream());
-
-                    onProgressUpdate(4);
 
                     new EchoOffCommand().run(sock.getInputStream(), sock.getOutputStream());
 
-                    onProgressUpdate(5);
-
-                    onProgressUpdate(6);
-
                     new SelectProtocolCommand(ObdProtocols.AUTO).run(sock.getInputStream(), sock.getOutputStream());
-
-                    onProgressUpdate(7);
 
                     MyTroubleCodesCommand tcoc = new MyTroubleCodesCommand();
                     tcoc.run(sock.getInputStream(), sock.getOutputStream());
-                    onProgressUpdate(8);
                     result = tcoc.getFormattedResult();
 
 

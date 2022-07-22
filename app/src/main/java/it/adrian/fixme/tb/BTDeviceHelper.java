@@ -101,7 +101,6 @@ public class BTDeviceHelper {
 
             synchronized (this) {
                 Log.d(TAG, "Starting service..");
-                onProgressUpdate(1);
                 final BluetoothAdapter btAdapter = BluetoothAdapter.getDefaultAdapter();
                 dev = btAdapter.getRemoteDevice(params[0]);
 
@@ -109,7 +108,6 @@ public class BTDeviceHelper {
                 btAdapter.cancelDiscovery();
 
                 Log.d(TAG, "Starting OBD connection..");
-                onProgressUpdate(2);
                 BluetoothSocket sock;
                 // Instantiate a BluetoothSocket for the remote device and connect it.
                 try {
