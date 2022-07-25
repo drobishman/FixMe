@@ -1,8 +1,9 @@
 <resources>
     <string name="btn_gettc">Go to get Trouble Codes</string>
-    <string name="lblSsoID">Enter Your Username :</string>
-    <string name="lblPassword">Enter Your Password :</string>
-    <string name="btn_submit">Submit</string>
+    <string name="lblSsoID">Enter Username</string>
+    <string name="lblPassword">Enter Password</string>
+    <string name="btn_submit">Log in</string>
+    <string name="btn_logout">Logout</string>
     <string name="app_name">FixMe</string>
     <string name="action">Action: </string>
     <string name="get_errors">Get error codes</string>

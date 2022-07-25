@@ -78,9 +78,11 @@ public class UserLoginAsyncTask extends AsyncTask<String, String, String> {
         Set<Car> carSet = new HashSet<Car>();
         Set<TroubleCode> troubleCodesSet = new HashSet<TroubleCode>();
 
-        if(result==null){
+        Log.d("UserLoginAsyncTasK", result);
+
+        if(result==null || result.contains("FAIL")){
             response.taskResult(null);
-        }else
+        }else {
             try {
                 JSONObject response = new JSONObject(result);
                 user.setId(response.getInt("id"));
@@ -90,8 +92,7 @@ public class UserLoginAsyncTask extends AsyncTask<String, String, String> {
                 user.setEmail(response.getString("email"));
                 user.setLoggedIn(response.getBoolean("loggedIn"));
                 JSONArray userCars = response.getJSONArray("userCars");
-                for(int n = 0; n < userCars.length(); n++)
-                {
+                for (int n = 0; n < userCars.length(); n++) {
                     JSONObject jCar = userCars.getJSONObject(n);
                     Car car = new Car();
                     car.setId(jCar.getInt("id"));
@@ -100,7 +101,7 @@ public class UserLoginAsyncTask extends AsyncTask<String, String, String> {
                     car.setBrand(jCar.getString("brand"));
                     car.setModel(jCar.getString("model"));
                     JSONArray jTroubleCodes = jCar.getJSONArray("troubleCodes");
-                    for(int i = 0; i < jTroubleCodes.length(); i++){
+                    for (int i = 0; i < jTroubleCodes.length(); i++) {
                         JSONObject jTroubleCode = jTroubleCodes.getJSONObject(i);
                         TroubleCode troubleCode = new TroubleCode();
                         troubleCode.setFaultLocation(jTroubleCode.getString("faultLocation"));
@@ -117,7 +118,8 @@ public class UserLoginAsyncTask extends AsyncTask<String, String, String> {
                 e.printStackTrace();
             }
 
-        Log.d("User: ", user.getSsoId());
-        response.taskResult(user);
+            Log.d("User: ", user.getSsoId());
+            response.taskResult(user);
+        }
     }
 }
