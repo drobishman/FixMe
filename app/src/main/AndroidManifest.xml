@@ -14,6 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+
         <activity android:name=".ui.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,7 +23,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.ResponseActivity" />
-        <activity android:name=".ui.RequestActivity"/>
+        <activity android:name=".ui.RequestActivity" />
+        <activity android:name=".ui.UserDetailsActivity" />
+
     </application>
 
 </manifest>

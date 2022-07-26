@@ -1,8 +1,9 @@
 <resources>
     <string name="btn_gettc">Go to get Trouble Codes</string>
-    <string name="lblSsoID">Enter Your Username :</string>
-    <string name="lblPassword">Enter Your Password :</string>
-    <string name="btn_submit">Submit</string>
+    <string name="lblSsoID">Enter Username</string>
+    <string name="lblPassword">Enter Password</string>
+    <string name="btn_submit">Log in</string>
+    <string name="btn_logout">Logout</string>
     <string name="app_name">FixMe</string>
     <string name="action">Action: </string>
     <string name="get_errors">Get error codes</string>
@@ -30,5 +31,14 @@
     <string name="fault">Fault</string>
     <string name="test">OBD/Test device</string>
     <string name="choice_test">Choice device type</string>
+    <string name="title_activity_user_details">UserDetailsActivity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
 </resources>
 
