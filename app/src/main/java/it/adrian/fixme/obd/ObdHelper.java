@@ -1,12 +1,18 @@
 package it.adrian.fixme.obd;
 
+import android.Manifest;
+import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
+import android.content.pm.PackageManager;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Handler;
 import android.util.Log;
 import android.widget.ProgressBar;
+
+import androidx.core.app.ActivityCompat;
 
 import com.github.pires.obd.commands.protocol.EchoOffCommand;
 import com.github.pires.obd.commands.protocol.ObdResetCommand;
@@ -22,6 +28,7 @@ import java.util.Set;
 import java.util.UUID;
 
 import it.adrian.fixme.ui.RequestActivity;
+import it.adrian.fixme.utils.PermissionUtils;
 
 
 /**
@@ -85,15 +92,17 @@ public class ObdHelper {
         }
     }
 
-    public static Set<BluetoothDevice> getPairedDevice() {
+    public static Set<BluetoothDevice> getPairedDevice(Activity activity) {
         if (bluetoothAdapter == null)
             bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-        if (bluetoothAdapter.getState() == BluetoothAdapter.STATE_ON)
-            try{
-                pairedDevices = bluetoothAdapter.getBondedDevices();
-            } catch (SecurityException e) {
-               e.printStackTrace();
+        if (bluetoothAdapter.getState() == BluetoothAdapter.STATE_ON) {if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S)
+            {
+                ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.BLUETOOTH_CONNECT}, 2);
             }
+        }
+        pairedDevices = bluetoothAdapter.getBondedDevices();}
+
 
         return pairedDevices;
     }
@@ -117,17 +126,21 @@ public class ObdHelper {
                 dev = btAdapter.getRemoteDevice(params[0]);
 
                 Log.d(TAG, "Stopping Bluetooth discovery.");
-                try {
-                    btAdapter.cancelDiscovery();
-                } catch (SecurityException e) {
-                    e.printStackTrace();
+
+                if (bluetoothAdapter.getState() == BluetoothAdapter.STATE_ON) {if (ActivityCompat.checkSelfPermission(requestActivity, Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S)
+                    {
+                        ActivityCompat.requestPermissions(requestActivity, new String[]{Manifest.permission.BLUETOOTH_CONNECT}, 2);
+                    }
                 }
+                btAdapter.cancelDiscovery();
+
 
                 Log.d(TAG, "Starting OBD connection..");
                 BluetoothSocket sock;
                 // Instantiate a BluetoothSocket for the remote device and connect it.
                 try {
-                    sock = connect(dev);
+                    sock = connect(dev,requestActivity);
                 } catch (Exception e) {
                     Log.e(TAG, "There was an error while establishing connection. -> " + e.getMessage());
                     Log.d(TAG, "Message received on handler here");
@@ -183,6 +196,7 @@ public class ObdHelper {
             }
             return result;
         }
+        }
 
         private void closeSocket(BluetoothSocket sock) {
             if (sock != null)
@@ -218,16 +232,21 @@ public class ObdHelper {
      * @return The BluetoothSocket
      * @throws IOException
      */
-    private static BluetoothSocket connect(BluetoothDevice dev) throws IOException {
+    private static BluetoothSocket connect(BluetoothDevice dev, Activity activity) throws IOException {
         BluetoothSocket sock = null;
         BluetoothSocket sockFallback;
 
         Log.d(TAG, "Starting Bluetooth connection..");
         try {
+            if (bluetoothAdapter.getState() == BluetoothAdapter.STATE_ON) {
+                if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                        ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.BLUETOOTH_CONNECT}, 2);
+                    }
+                }
+            }
             sock = dev.createRfcommSocketToServiceRecord(MY_UUID);
             sock.connect();
-        } catch (SecurityException e3){
-            e3.printStackTrace();
         } catch (Exception e1) {
             Log.e(TAG, "There was an error while establishing Bluetooth connection. Falling back..", e1);
             if (sock != null) {

@@ -76,9 +76,9 @@ public class UserDetailsActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                Car dataModel= carsList.get(position);
+                Car car= carsList.get(position);
 
-                Snackbar.make(view, dataModel.getRegistrationNumber()+"\n"+dataModel.getChasisNumber()+" API: "+dataModel.getModel(), Snackbar.LENGTH_LONG)
+                Snackbar.make(view, car.getRegistrationNumber()+"\n"+car.getChasisNumber()+" API: "+car.getModel(), Snackbar.LENGTH_LONG)
                         .setAction("No action", null).show();
             }
         });

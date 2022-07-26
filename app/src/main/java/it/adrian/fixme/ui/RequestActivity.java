@@ -155,7 +155,7 @@ public class RequestActivity extends AppCompatActivity {
         List<BluetoothDevice> devices = new ArrayList<>();
         Set<BluetoothDevice> deviceSet;
         if (!test) {
-            deviceSet = ObdHelper.getPairedDevice();
+            deviceSet = ObdHelper.getPairedDevice(this);
         } else
             deviceSet = BTDeviceHelper.getPairedDevice();
 

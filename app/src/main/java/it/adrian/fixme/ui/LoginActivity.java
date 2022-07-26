@@ -14,6 +14,7 @@ import it.adrian.fixme.R;
 import it.adrian.fixme.connection.UserLoginAsyncTask;
 import it.adrian.fixme.connection.UserLoginResponse;
 import it.adrian.fixme.model.User;
+import it.adrian.fixme.utils.PermissionUtils;
 
 public class LoginActivity extends AppCompatActivity implements UserLoginResponse {
 
@@ -32,6 +33,7 @@ public class LoginActivity extends AppCompatActivity implements UserLoginRespons
         setContentView(R.layout.activity_login);
 
         addListenerOnButton();
+        PermissionUtils.askForPermissions(this);
     }
 
     public void addListenerOnButton() {
