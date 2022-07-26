@@ -2,17 +2,18 @@ package it.adrian.fixme.ui;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.os.Bundle;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+
+import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -71,6 +72,16 @@ public class UserDetailsActivity extends AppCompatActivity {
         adapter = new CarCustomAdapter(carsList,getApplicationContext());
         carsListView.setAdapter(adapter);
 
+        carsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                Car dataModel= carsList.get(position);
+
+                Snackbar.make(view, dataModel.getRegistrationNumber()+"\n"+dataModel.getChasisNumber()+" API: "+dataModel.getModel(), Snackbar.LENGTH_LONG)
+                        .setAction("No action", null).show();
+            }
+        });
     }
 
 

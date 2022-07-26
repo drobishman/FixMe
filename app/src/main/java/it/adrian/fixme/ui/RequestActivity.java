@@ -1,15 +1,21 @@
 package it.adrian.fixme.ui;
 
+import android.Manifest;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v7.app.AppCompatActivity;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,12 +23,10 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.support.v7.app.AppCompatActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -80,7 +84,7 @@ public class RequestActivity extends AppCompatActivity {
 
         int bluetoothStatus;
 
-        if(!test)
+        if (!test)
             bluetoothStatus = ObdHelper.checkBluetoothEnabled();
 
         else
@@ -101,6 +105,12 @@ public class RequestActivity extends AppCompatActivity {
 
     private void makeBluetoothRequest() {
         Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S)
+            {
+                ActivityCompat.requestPermissions(RequestActivity.this, new String[]{Manifest.permission.BLUETOOTH_CONNECT}, 2);
+            }
+        }
         startActivityForResult(enableBtIntent, 1234);
     }
 
@@ -112,11 +122,11 @@ public class RequestActivity extends AppCompatActivity {
 
         populateTestSpinner();
 
-        if(!test){
+        if (!test) {
             if (ObdHelper.checkBluetoothEnabled() == 1) {
                 populateDeviceSpinner();
             }
-        }else {
+        } else {
 
             if (BTDeviceHelper.checkBluetoothEnabled() == 1) {
                 populateDeviceSpinner();
@@ -127,11 +137,11 @@ public class RequestActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 sendBtn.setEnabled(false);
-                if(!test) {
+                if (!test) {
                     obdHelper = new ObdHelper(mHandler, RequestActivity.this);
                     progressBar.setProgress(0);
                     obdHelper.connectToDevice();
-                }else {
+                } else {
                     btDeviceHelper = new BTDeviceHelper(mHandler, RequestActivity.this);
                     progressBar.setProgress(0);
                     btDeviceHelper.connectToDevice();
@@ -144,10 +154,17 @@ public class RequestActivity extends AppCompatActivity {
     private void populateDeviceSpinner() {
         List<BluetoothDevice> devices = new ArrayList<>();
         Set<BluetoothDevice> deviceSet;
-        if(!test) {
+        if (!test) {
             deviceSet = ObdHelper.getPairedDevice();
-        }else
+        } else
             deviceSet = BTDeviceHelper.getPairedDevice();
+
+        if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S)
+            {
+                ActivityCompat.requestPermissions(RequestActivity.this, new String[]{Manifest.permission.BLUETOOTH_CONNECT}, 2);
+            }
+        }
         devices.addAll(deviceSet);
         final MyArrayAdapter deviceAdapter = new MyArrayAdapter(this, android.R.layout.simple_list_item_1, devices);
         deviceSpinner.setAdapter(deviceAdapter);
@@ -163,7 +180,7 @@ public class RequestActivity extends AppCompatActivity {
         });
     }
 
-    private void populateTestSpinner(){
+    private void populateTestSpinner() {
         List<String> testDevices = new ArrayList<>();
         testDevices.add("OBD2");
         testDevices.add("Android device");
@@ -173,7 +190,7 @@ public class RequestActivity extends AppCompatActivity {
 
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-                if(pos==1){
+                if (pos == 1) {
                     test = true;
                 }
             }
@@ -183,7 +200,6 @@ public class RequestActivity extends AppCompatActivity {
             }
         });
     }
-
 
 
     private class MyArrayAdapter extends ArrayAdapter {
@@ -198,6 +214,14 @@ public class RequestActivity extends AppCompatActivity {
                 convertView = LayoutInflater.from(getContext()).inflate(android.R.layout.simple_list_item_1, parent, false);
             }
             TextView data = (TextView) convertView.findViewById(android.R.id.text1);
+            if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S)
+                {
+                    ActivityCompat.requestPermissions(RequestActivity.this, new String[]{Manifest.permission.BLUETOOTH_CONNECT}, 2);
+                }
+
+            }
             data.setText(device.getName());
             return convertView;
         }
@@ -209,6 +233,12 @@ public class RequestActivity extends AppCompatActivity {
                 convertView = LayoutInflater.from(getContext()).inflate(android.R.layout.simple_list_item_1, parent, false);
             }
             TextView data = (TextView) convertView.findViewById(android.R.id.text1);
+            if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S)
+                {
+                    ActivityCompat.requestPermissions(RequestActivity.this, new String[]{Manifest.permission.BLUETOOTH_CONNECT}, 2);
+                }
+            }
             data.setText(device.getName());
             return convertView;
         }
