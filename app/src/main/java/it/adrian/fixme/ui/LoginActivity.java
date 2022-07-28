@@ -25,6 +25,7 @@ public class LoginActivity extends AppCompatActivity implements UserLoginRespons
     private EditText password;
     private Button btnSubmit;
     private Button btnGetTC;
+    private Button btnRegister;
     private TextView txtInfo;
 
     @Override
@@ -42,6 +43,7 @@ public class LoginActivity extends AppCompatActivity implements UserLoginRespons
         password = (EditText) findViewById(R.id.txt_password);
         btnSubmit = (Button) findViewById(R.id.btn_submit);
         btnGetTC = (Button) findViewById(R.id.btn_gettc);
+        btnRegister = (Button) findViewById(R.id.btn_register);
         txtInfo = findViewById(R.id.txt_info);
 
         shp = getSharedPreferences("myPreferences", MODE_PRIVATE);
@@ -64,6 +66,13 @@ public class LoginActivity extends AppCompatActivity implements UserLoginRespons
                 }
             }
 
+        });
+
+        btnRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
         });
 
         btnGetTC.setOnClickListener(new View.OnClickListener() {

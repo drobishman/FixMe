@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:background="@android:drawable/editbox_background_normal"
-            android:hint="@string/lblSsoID"
+            android:hint="@string/lbl_ssoid"
             android:padding="12dp" />
 
         <EditText
@@ -32,7 +32,7 @@
             android:layout_height="match_parent"
             android:layout_margin="5dp"
             android:background="@android:drawable/editbox_background_normal"
-            android:hint="@string/lblPassword"
+            android:hint="@string/lbl_password"
             android:inputType="textPassword"
             android:padding="12dp" />
 
@@ -44,6 +44,16 @@
             android:layout_margin="5dp"
             android:background="#1976D2"
             android:text="@string/btn_submit"
+            android:textColor="#fff" />
+
+        <Button
+            android:id="@+id/btn_register"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="5dp"
+            android:background="#567d46"
+            android:text="@string/btn_register"
             android:textColor="#fff" />
 
         <Button

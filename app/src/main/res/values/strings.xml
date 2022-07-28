@@ -1,7 +1,11 @@
 <resources>
+    <string name="lbl_email">Enter eMail</string>
+    <string name="lbl_last_name">Enter Last Name</string>
+    <string name="lbl_first_name">Enter First Name</string>
+    <string name="btn_register">Register</string>
     <string name="btn_gettc">Go to get Trouble Codes</string>
-    <string name="lblSsoID">Enter Username</string>
-    <string name="lblPassword">Enter Password</string>
+    <string name="lbl_ssoid">Enter Username</string>
+    <string name="lbl_password">Enter Password</string>
     <string name="btn_submit">Log in</string>
     <string name="btn_logout">Logout</string>
     <string name="app_name">FixMe</string>
