@@ -10,7 +10,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
 
 import it.adrian.fixme.R;
@@ -112,6 +114,9 @@ public class RegisterActivity extends AppCompatActivity implements RegisterRespo
     @Override
     public void taskResult(User user){
 
+        if(user == null){
+            Toast.makeText(this.getApplicationContext(),"Something went wrong, please try again!", Toast.LENGTH_LONG).show();
+        }else
         if(!user.getSsoId().equals("") || user.getSsoId() != null) {
             try {
                 if (shp == null)
@@ -131,7 +136,7 @@ public class RegisterActivity extends AppCompatActivity implements RegisterRespo
             }
         }
         else{
-            infoUsr.setText("Invalid data");
+            Toast.makeText(this.getApplicationContext(),"Something went wrong, please try again!", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -142,6 +147,10 @@ public class RegisterActivity extends AppCompatActivity implements RegisterRespo
         if (userLogged != null && !userLogged.equals("")) {
             usr.setText(user.getSsoId());
             usr.setEnabled(false);
+            psw.setText(user.getPassword());
+            lName.setText(user.getLastName());
+            fName.setText(user.getFirstName());
+            email.setText(user.getEmail());
         }
     }
 
