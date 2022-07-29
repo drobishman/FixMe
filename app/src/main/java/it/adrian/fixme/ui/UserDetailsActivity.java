@@ -32,6 +32,7 @@ public class UserDetailsActivity extends AppCompatActivity {
 
     private TextView welcome;
     private Button btnLogOut;
+    private Button btnEditUser;
 
     SharedPreferences shp;
     SharedPreferences.Editor shpEditor;
@@ -55,6 +56,7 @@ public class UserDetailsActivity extends AppCompatActivity {
 
         welcome = (TextView) findViewById(R.id.welcome);
         btnLogOut = (Button) findViewById(R.id.btn_logout);
+        btnEditUser = (Button) findViewById(R.id.btn_edit_user);
 
         welcome.append(user.getFirstName()+ " " + user.getLastName());
 
@@ -62,6 +64,15 @@ public class UserDetailsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Logout();
+            }
+        });
+
+        btnEditUser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent myIntent = new Intent(UserDetailsActivity.this, RegisterActivity.class);
+                //myIntent.putExtra("key", value); //Optional parameters
+                UserDetailsActivity.this.startActivity(myIntent);
             }
         });
 
@@ -100,5 +111,10 @@ public class UserDetailsActivity extends AppCompatActivity {
         } catch (Exception ex) {
             Toast.makeText(UserDetailsActivity.this, ex.getMessage().toString(), Toast.LENGTH_LONG).show();
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        finishAffinity();
     }
 }

@@ -1,4 +1,4 @@
-package it.adrian.fixme.ui;
+package it.adrian.fixme.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -15,12 +15,12 @@ import it.adrian.fixme.R;
  * Created by adrian on 19/07/2017.
  */
 
-class ResultAdapter extends ArrayAdapter<String> {
+public class ResultAdapter extends ArrayAdapter<String> {
 
     private Context context;
     private ArrayList<String> values;
 
-    ResultAdapter(Context context, ArrayList<String> values) {
+    public ResultAdapter(Context context, ArrayList<String> values) {
         super(context, -1, values);
         this.context = context;
         this.values = values;

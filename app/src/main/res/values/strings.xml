@@ -1,4 +1,10 @@
 <resources>
+    <string name="msg_plate_number">Plate Number: </string>
+    <string name="msg_chasis_number">VIN Number: </string>
+    <string name="msg_brand">Brand: </string>
+    <string name="msg_model">Model: </string>
+    <string name="lbl_edit_car">Edit</string>
+    <string name="lbl_car_tc">View trouble codes</string>
     <string name="lbl_email">Enter eMail</string>
     <string name="lbl_last_name">Enter Last Name</string>
     <string name="lbl_first_name">Enter First Name</string>

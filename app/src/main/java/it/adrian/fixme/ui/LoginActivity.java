@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
 
 import it.adrian.fixme.R;
@@ -71,7 +73,9 @@ public class LoginActivity extends AppCompatActivity implements UserLoginRespons
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent myIntent = new Intent(LoginActivity.this, RegisterActivity.class);
+                //myIntent.putExtra("key", value); //Optional parameters
+                LoginActivity.this.startActivity(myIntent);
             }
         });
 
@@ -123,5 +127,10 @@ public class LoginActivity extends AppCompatActivity implements UserLoginRespons
             Intent myIntent = new Intent(LoginActivity.this, UserDetailsActivity.class);
             LoginActivity.this.startActivity(myIntent);
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        finishAffinity();
     }
 }

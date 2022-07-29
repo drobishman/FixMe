@@ -40,6 +40,7 @@
             android:layout_margin="5dp"
             android:background="@android:drawable/editbox_background_normal"
             android:hint="@string/lbl_password"
+            android:inputType="textPassword"
             android:padding="12dp" />
 
         <TextView

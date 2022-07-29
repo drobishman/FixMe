@@ -78,7 +78,7 @@ public class UserLoginAsyncTask extends AsyncTask<String, String, String> {
         Set<Car> carSet = new HashSet<Car>();
         Set<TroubleCode> troubleCodesSet = new HashSet<TroubleCode>();
 
-        Log.d("UserLoginAsyncTasK", result);
+        //Log.d("UserLoginAsyncTasK", result);
 
         if(result==null || result.contains("FAIL")){
             response.taskResult(null);

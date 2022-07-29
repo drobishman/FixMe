@@ -10,6 +10,7 @@ import android.widget.ListView;
 import java.util.ArrayList;
 
 import it.adrian.fixme.R;
+import it.adrian.fixme.adapter.*;
 import it.adrian.fixme.connection.TroubleCodesByCategoryResponse;
 import it.adrian.fixme.connection.TroubleCodesByNumberAsyncTask;
 import it.adrian.fixme.model.TroubleCode;

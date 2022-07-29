@@ -4,4 +4,6 @@ import it.adrian.fixme.model.User;
 
 public interface RegisterResponse {
     void taskResult(User user);
+
+    User user = new User();
 }
