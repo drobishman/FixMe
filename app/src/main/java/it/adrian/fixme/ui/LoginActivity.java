@@ -2,18 +2,21 @@ package it.adrian.fixme.ui;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
 
 import it.adrian.fixme.R;
 import it.adrian.fixme.connection.UserLoginAsyncTask;
 import it.adrian.fixme.connection.UserLoginResponse;
 import it.adrian.fixme.model.User;
+import it.adrian.fixme.utils.PermissionUtils;
 
 public class LoginActivity extends AppCompatActivity implements UserLoginResponse {
 
@@ -24,6 +27,7 @@ public class LoginActivity extends AppCompatActivity implements UserLoginRespons
     private EditText password;
     private Button btnSubmit;
     private Button btnGetTC;
+    private Button btnRegister;
     private TextView txtInfo;
 
     @Override
@@ -32,6 +36,7 @@ public class LoginActivity extends AppCompatActivity implements UserLoginRespons
         setContentView(R.layout.activity_login);
 
         addListenerOnButton();
+        PermissionUtils.askForPermissions(this);
     }
 
     public void addListenerOnButton() {
@@ -40,6 +45,7 @@ public class LoginActivity extends AppCompatActivity implements UserLoginRespons
         password = (EditText) findViewById(R.id.txt_password);
         btnSubmit = (Button) findViewById(R.id.btn_submit);
         btnGetTC = (Button) findViewById(R.id.btn_gettc);
+        btnRegister = (Button) findViewById(R.id.btn_register);
         txtInfo = findViewById(R.id.txt_info);
 
         shp = getSharedPreferences("myPreferences", MODE_PRIVATE);
@@ -62,6 +68,15 @@ public class LoginActivity extends AppCompatActivity implements UserLoginRespons
                 }
             }
 
+        });
+
+        btnRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent myIntent = new Intent(LoginActivity.this, RegisterActivity.class);
+                //myIntent.putExtra("key", value); //Optional parameters
+                LoginActivity.this.startActivity(myIntent);
+            }
         });
 
         btnGetTC.setOnClickListener(new View.OnClickListener() {
@@ -112,5 +127,10 @@ public class LoginActivity extends AppCompatActivity implements UserLoginRespons
             Intent myIntent = new Intent(LoginActivity.this, UserDetailsActivity.class);
             LoginActivity.this.startActivity(myIntent);
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        finishAffinity();
     }
 }

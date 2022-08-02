@@ -2,7 +2,6 @@ package it.adrian.fixme.adapter;
 
 
 import android.content.Context;
-import android.support.design.widget.Snackbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +9,8 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 
@@ -45,7 +46,7 @@ public class CarCustomAdapter extends ArrayAdapter<Car> implements View.OnClickL
 
         switch (v.getId())
         {
-            case R.id.registrationNumber:
+            case R.id.registration_number:
                 Snackbar.make(v, "Car plate number " +dataModel.getRegistrationNumber(), Snackbar.LENGTH_LONG)
                         .setAction("No action", null).show();
                 break;
@@ -68,8 +69,8 @@ public class CarCustomAdapter extends ArrayAdapter<Car> implements View.OnClickL
             viewHolder = new ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(getContext());
             convertView = inflater.inflate(R.layout.car_view, parent, false);
-            viewHolder.registrationNumber = (TextView) convertView.findViewById(R.id.registrationNumber);
-            viewHolder.chasisNumber = (TextView) convertView.findViewById(R.id.chasisNumber);
+            viewHolder.registrationNumber = (TextView) convertView.findViewById(R.id.registration_number);
+            viewHolder.chasisNumber = (TextView) convertView.findViewById(R.id.chasis_number);
             viewHolder.brand = (TextView) convertView.findViewById(R.id.brand);
             viewHolder.model = (TextView) convertView.findViewById(R.id.model);
 
@@ -85,10 +86,10 @@ public class CarCustomAdapter extends ArrayAdapter<Car> implements View.OnClickL
         result.startAnimation(animation);
         lastPosition = position;
 
-        viewHolder.chasisNumber.setText(dataModel.getChasisNumber());
-        viewHolder.registrationNumber.setText(dataModel.getRegistrationNumber());
-        viewHolder.brand.setText(dataModel.getBrand());
-        viewHolder.model.setText(dataModel.getModel());
+        viewHolder.chasisNumber.setText("Chasis number: " + dataModel.getChasisNumber());
+        viewHolder.registrationNumber.setText("Registration number: " + dataModel.getRegistrationNumber());
+        viewHolder.brand.setText("Brand: " + dataModel.getBrand());
+        viewHolder.model.setText("Model: " + dataModel.getModel());
         // Return the completed view to render on screen
         return convertView;
     }

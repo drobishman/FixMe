@@ -1,7 +1,18 @@
 <resources>
+    <string name="btn_update">Update </string>
+    <string name="msg_plate_number">Plate Number: </string>
+    <string name="msg_chasis_number">VIN Number: </string>
+    <string name="msg_brand">Brand: </string>
+    <string name="msg_model">Model: </string>
+    <string name="lbl_edit_car">Edit</string>
+    <string name="lbl_car_tc">View trouble codes</string>
+    <string name="lbl_email">Enter eMail</string>
+    <string name="lbl_last_name">Enter Last Name</string>
+    <string name="lbl_first_name">Enter First Name</string>
+    <string name="btn_register">Register</string>
     <string name="btn_gettc">Go to get Trouble Codes</string>
-    <string name="lblSsoID">Enter Username</string>
-    <string name="lblPassword">Enter Password</string>
+    <string name="lbl_ssoid">Enter Username</string>
+    <string name="lbl_password">Enter Password</string>
     <string name="btn_submit">Log in</string>
     <string name="btn_logout">Logout</string>
     <string name="app_name">FixMe</string>
@@ -40,5 +51,9 @@
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="lbl_chasis_number">Enter chasis number</string>
+    <string name="lbl_registration_number">Enter registration number</string>
+    <string name="lbl_brand">Enter car\'s brand</string>
+    <string name="btn_add_car">Add car</string>
 </resources>
 

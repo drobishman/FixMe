@@ -78,7 +78,12 @@ public class BTDeviceHelper {
         if (bluetoothAdapter == null)
             bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         if (bluetoothAdapter.getState() == BluetoothAdapter.STATE_ON)
-            pairedDevices = bluetoothAdapter.getBondedDevices();
+            try {
+                pairedDevices = bluetoothAdapter.getBondedDevices();
+            } catch (SecurityException e){
+                e.printStackTrace();
+            }
+
         return pairedDevices;
     }
 
@@ -105,7 +110,11 @@ public class BTDeviceHelper {
                 dev = btAdapter.getRemoteDevice(params[0]);
 
                 Log.d(TAG, "Stopping Bluetooth discovery.");
-                btAdapter.cancelDiscovery();
+                try {
+                    btAdapter.cancelDiscovery();
+                } catch (SecurityException e){
+                    e.printStackTrace();
+                }
 
                 Log.d(TAG, "Starting OBD connection..");
                 BluetoothSocket sock;
@@ -202,6 +211,8 @@ public class BTDeviceHelper {
         try {
             sock = dev.createRfcommSocketToServiceRecord(MY_UUID);
             sock.connect();
+        } catch (SecurityException e3){
+            e3.printStackTrace();
         } catch (Exception e1) {
             Log.e(TAG, "There was an error while establishing Bluetooth connection. Falling back..", e1);
             if (sock != null) {
