@@ -16,17 +16,16 @@ import java.net.URL;
 
 import it.adrian.fixme.model.User;
 
-public class RegisterAsyncTask extends AsyncTask<String, String, String> {
-
+public class UpdateAsyncTask extends AsyncTask<String, String, String> {
     private Activity activity;
     private String usr;
     private String psw;
     private String fName;
     private String lName;
     private String email;
-    public RegisterResponse response = null;
+    public UpdateResponse response = null;
 
-    public RegisterAsyncTask (Activity activity, String usr, String psw, String fName, String lName, String email){
+    public UpdateAsyncTask (Activity activity, String usr, String psw, String fName, String lName, String email){
 
         this.activity=activity;
         this.usr=usr;
@@ -37,11 +36,10 @@ public class RegisterAsyncTask extends AsyncTask<String, String, String> {
     }
 
 
-
     @Override
     protected String doInBackground(String... strings) {
 
-        String stringUrl = "http://dcvideo.go.ro:8763/fixitweb/android/register?ssoId="+usr+"&password="+psw+"&firstName="+fName+"&lastName="+lName+"&email="+email+"";
+        String stringUrl = "http://dcvideo.go.ro:8763/fixitweb/android/update?ssoId="+usr+"&password="+psw+"&firstName="+fName+"&lastName="+lName+"&email="+email+"";
 
         Log.d(TAG, "making get request:" + stringUrl);
 

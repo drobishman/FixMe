@@ -20,10 +20,13 @@ import java.util.ArrayList;
 
 import it.adrian.fixme.R;
 import it.adrian.fixme.adapter.CarCustomAdapter;
+import it.adrian.fixme.connection.LogoutAsyncTask;
+import it.adrian.fixme.connection.LogoutResponse;
+import it.adrian.fixme.connection.UserLoginAsyncTask;
 import it.adrian.fixme.model.Car;
 import it.adrian.fixme.model.User;
 
-public class UserDetailsActivity extends AppCompatActivity {
+public class UserDetailsActivity extends AppCompatActivity implements LogoutResponse {
 
     private User user;
     private static CarCustomAdapter adapter;
@@ -63,14 +66,18 @@ public class UserDetailsActivity extends AppCompatActivity {
         btnLogOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Logout();
+                Thread.currentThread().setContextClassLoader(getClass().getClassLoader());
+                LogoutAsyncTask logoutAsyncTask = new LogoutAsyncTask(UserDetailsActivity.this,
+                        user.getSsoId());
+                logoutAsyncTask.response = UserDetailsActivity.this;
+                logoutAsyncTask.execute();
             }
         });
 
         btnEditUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent myIntent = new Intent(UserDetailsActivity.this, RegisterActivity.class);
+                Intent myIntent = new Intent(UserDetailsActivity.this, UpdateActivity.class);
                 //myIntent.putExtra("key", value); //Optional parameters
                 UserDetailsActivity.this.startActivity(myIntent);
             }
@@ -116,5 +123,13 @@ public class UserDetailsActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         finishAffinity();
+    }
+
+    @Override
+    public void taskResult(String result) {
+        if(result.contains("SUCCESS"))
+            Logout();
+        else
+            Toast.makeText(UserDetailsActivity.this, "Logout error! Server error "+result+"", Toast.LENGTH_LONG).show();
     }
 }

@@ -6,42 +6,28 @@ import android.app.Activity;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import it.adrian.fixme.model.User;
+public class LogoutAsyncTask extends AsyncTask<String, String, String> {
 
-public class RegisterAsyncTask extends AsyncTask<String, String, String> {
+    public Activity activity;
+    public String usr;
 
-    private Activity activity;
-    private String usr;
-    private String psw;
-    private String fName;
-    private String lName;
-    private String email;
-    public RegisterResponse response = null;
+    public LogoutResponse response;
 
-    public RegisterAsyncTask (Activity activity, String usr, String psw, String fName, String lName, String email){
+    public LogoutAsyncTask (Activity activity, String usr){
 
         this.activity=activity;
         this.usr=usr;
-        this.psw=psw;
-        this.fName=fName;
-        this.lName=lName;
-        this.email=email;
     }
-
-
 
     @Override
     protected String doInBackground(String... strings) {
 
-        String stringUrl = "http://dcvideo.go.ro:8763/fixitweb/android/register?ssoId="+usr+"&password="+psw+"&firstName="+fName+"&lastName="+lName+"&email="+email+"";
+        String stringUrl = "http://dcvideo.go.ro:8763/fixitweb/android/logoff?ssoId="+usr+"";
 
         Log.d(TAG, "making get request:" + stringUrl);
 
@@ -78,26 +64,11 @@ public class RegisterAsyncTask extends AsyncTask<String, String, String> {
     protected void onPostExecute(String result) {
         super.onPostExecute(result);
 
-        User user = new User();
-
         Log.d("Register status", result.toString());
 
         if(result==null || result.contains("FAIL")){
             response.taskResult(null);
-        }else {
-            try {
-                JSONObject response = new JSONObject(result);
-                user.setId(response.getInt("id"));
-                user.setSsoId(response.getString("ssoId"));
-                user.setFirstName(response.getString("firstName"));
-                user.setLastName(response.getString("lastName"));
-                user.setEmail(response.getString("email"));
-                user.setLoggedIn(response.getBoolean("loggedIn"));
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-        Log.d("User: ", user.getSsoId());
-        response.taskResult(user);
+        }else
+            response.taskResult(result);
     }
 }
