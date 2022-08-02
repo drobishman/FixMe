@@ -1,0 +1,18 @@
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"DesignSurface\">\r\n    <option name=\"filePathToZoomLevelMap\">\r\n      <map>\r\n        <entry key=\"..\\:/Users/adrian.drob/AndroidStudioProjects/FixMe/app/src/main/res/layout/activity_login.xml\" value=\"0.22\" />\r\n        <entry key=\"..\\:/Users/adrian.drob/AndroidStudioProjects/FixMe/app/src/main/res/layout/activity_request.xml\" value=\"0.25\" />\r\n        <entry key=\"..\\:/Users/adrian.drob/AndroidStudioProjects/FixMe/app/src/main/res/layout/activity_response.xml\" value=\"0.3223958333333333\" />\r\n        <entry key=\"..\\:/Users/adrian.drob/AndroidStudioProjects/FixMe/app/src/main/res/layout/result_item.xml\" value=\"0.3223958333333333\" />\r\n        <entry key=\"..\\:/Users/user/StudioProjects/FixMe/app/src/main/res/layout/activity_login.xml\" value=\"0.33\" />\r\n        <entry key=\"..\\:/Users/user/StudioProjects/FixMe/app/src/main/res/layout/activity_request.xml\" value=\"0.18802083333333333\" />\r\n        <entry key=\"..\\:/Users/user/StudioProjects/FixMe/app/src/main/res/layout/activity_response.xml\" value=\"0.18802083333333333\" />\r\n        <entry key=\"..\\:/Users/user/StudioProjects/FixMe/app/src/main/res/layout/activity_user_details.xml\" value=\"0.25\" />\r\n        <entry key=\"..\\:/Users/user/StudioProjects/FixMe/app/src/main/res/layout/car_view.xml\" value=\"0.13958333333333334\" />\r\n        <entry key=\"..\\:/Users/user/StudioProjects/FixMe/app/src/main/res/layout/result_item.xml\" value=\"0.18802083333333333\" />\r\n      </map>\r\n    </option>\r\n  </component>\r\n  <component name=\"ProjectRootManager\" version=\"2\" languageLevel=\"JDK_X\" project-jdk-name=\"11\" project-jdk-type=\"JavaSDK\" />\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/misc.xml b/.idea/misc.xml
+--- a/.idea/misc.xml	(revision aac9ea7d13f970baeb4279727b3eee51a88ae918)
++++ b/.idea/misc.xml	(date 1659455052371)
+@@ -16,5 +16,5 @@
+       </map>
+     </option>
+   </component>
+-  <component name="ProjectRootManager" version="2" languageLevel="JDK_X" project-jdk-name="11" project-jdk-type="JavaSDK" />
++  <component name="ProjectRootManager" version="2" languageLevel="JDK_16" project-jdk-name="11" project-jdk-type="JavaSDK" />
+ </project>
+\ No newline at end of file
