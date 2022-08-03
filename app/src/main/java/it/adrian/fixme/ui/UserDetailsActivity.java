@@ -36,6 +36,7 @@ public class UserDetailsActivity extends AppCompatActivity implements LogoutResp
     private TextView welcome;
     private Button btnLogOut;
     private Button btnEditUser;
+    private Button btnAddCar;
 
     SharedPreferences shp;
     SharedPreferences.Editor shpEditor;
@@ -60,6 +61,7 @@ public class UserDetailsActivity extends AppCompatActivity implements LogoutResp
         welcome = (TextView) findViewById(R.id.welcome);
         btnLogOut = (Button) findViewById(R.id.btn_logout);
         btnEditUser = (Button) findViewById(R.id.btn_edit_user);
+        btnAddCar = (Button) findViewById(R.id.btn_add_car);
 
         welcome.append(user.getFirstName()+ " " + user.getLastName());
 
@@ -78,6 +80,15 @@ public class UserDetailsActivity extends AppCompatActivity implements LogoutResp
             @Override
             public void onClick(View view) {
                 Intent myIntent = new Intent(UserDetailsActivity.this, UpdateActivity.class);
+                //myIntent.putExtra("key", value); //Optional parameters
+                UserDetailsActivity.this.startActivity(myIntent);
+            }
+        });
+
+        btnAddCar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent myIntent = new Intent(UserDetailsActivity.this, AddCarActivity.class);
                 //myIntent.putExtra("key", value); //Optional parameters
                 UserDetailsActivity.this.startActivity(myIntent);
             }
