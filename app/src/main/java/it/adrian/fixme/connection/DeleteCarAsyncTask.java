@@ -11,41 +11,22 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class AddCarAsyncTask extends AsyncTask<String, String, String> {
+public class DeleteCarAsyncTask extends AsyncTask<String, String, String> {
 
-    public AddCarResponse addCarResponse;
+    //public Activity activity;
+    public int id;
 
-    public Activity activity;
-    public String usr;
-    public String chasisNumber;
-    public String registrationNumber;
-    public String brand;
-    public String model;
+    public DeleteCarResponse response = null;
 
-    public AddCarResponse response = null;
-
-    public AddCarAsyncTask (Activity activity, String usr, String chasisNumber, String registrationNumber, String brand, String model ) {
-
-        this.activity = activity;
-        this.usr = usr;
-        this.chasisNumber = chasisNumber;
-        this.registrationNumber = registrationNumber;
-        this.brand = brand;
-        this.model = model;
-
+    public DeleteCarAsyncTask (int id){
+        //this.activity= activity;
+        this.id = id;
     }
-
-
 
     @Override
     protected String doInBackground(String... strings) {
-
-        String stringUrl = "http://dcvideo.go.ro:8763/fixitweb/android/addcar?" +
-                "ssoId="+usr+
-                "&registrationNumber="+registrationNumber+
-                "&chasisNumber="+chasisNumber+
-                "&brand="+brand+
-                "&model="+model+"";
+        String stringUrl = "http://dcvideo.go.ro:8763/fixitweb/android/deletecar?" +
+                "id="+id+"";
 
         Log.d(TAG, "making get request:" + stringUrl);
 
@@ -66,7 +47,7 @@ public class AddCarAsyncTask extends AsyncTask<String, String, String> {
                 input.close();
             }
 
-            Log.d("AddCarAsyncTask", response.toString());
+            Log.d("DeleteAsyncTask", response.toString());
 
             String jsonOutput = response.toString();
 

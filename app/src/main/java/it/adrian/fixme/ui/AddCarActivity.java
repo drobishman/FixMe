@@ -15,10 +15,13 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 
 import it.adrian.fixme.R;
+import it.adrian.fixme.connection.AddCarAsyncTask;
+import it.adrian.fixme.connection.AddCarResponse;
+import it.adrian.fixme.connection.UserLoginAsyncTask;
 import it.adrian.fixme.model.Car;
 import it.adrian.fixme.model.User;
 
-public class AddCarActivity extends AppCompatActivity {
+public class AddCarActivity extends AppCompatActivity implements AddCarResponse {
 
     private Car car = new Car ();
     private User user;
@@ -93,7 +96,15 @@ public class AddCarActivity extends AppCompatActivity {
 
                         user.getUserCars().add(car);
 
-                        // TODO ADD CALL TO SERVER TO ADD THE NEW CAR
+                        Thread.currentThread().setContextClassLoader(getClass().getClassLoader());
+                        AddCarAsyncTask addCarAsyncTask = new AddCarAsyncTask(AddCarActivity.this,
+                                user.getSsoId(),
+                                registrationNumber.getText().toString(),
+                                chasisNumber.getText().toString(),
+                                brand.getText().toString(),
+                                model.getText().toString());
+                        addCarAsyncTask.response = AddCarActivity.this;
+                        addCarAsyncTask.execute();
 
                         try {
                             if (shp == null)
@@ -125,5 +136,12 @@ public class AddCarActivity extends AppCompatActivity {
         infoRegistrationNumber.setText("");
         infoBrand.setText("");
         infoModel.setText("");
+    }
+
+    @Override
+    public void taskResult(String result) {
+
+        Toast.makeText(getApplicationContext(),""+result+"",Toast.LENGTH_LONG).show();
+
     }
 }

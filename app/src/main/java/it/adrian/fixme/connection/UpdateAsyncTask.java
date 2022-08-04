@@ -85,7 +85,7 @@ public class UpdateAsyncTask extends AsyncTask<String, String, String> {
         }else {
             try {
                 JSONObject response = new JSONObject(result);
-                user.setId(response.getInt("id"));
+                //user.setId(response.getInt("id"));
                 user.setSsoId(response.getString("ssoId"));
                 user.setFirstName(response.getString("firstName"));
                 user.setLastName(response.getString("lastName"));

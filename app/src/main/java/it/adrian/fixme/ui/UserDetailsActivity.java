@@ -6,14 +6,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ListView;
 
-
-import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -22,16 +19,15 @@ import it.adrian.fixme.R;
 import it.adrian.fixme.adapter.CarCustomAdapter;
 import it.adrian.fixme.connection.LogoutAsyncTask;
 import it.adrian.fixme.connection.LogoutResponse;
-import it.adrian.fixme.connection.UserLoginAsyncTask;
 import it.adrian.fixme.model.Car;
 import it.adrian.fixme.model.User;
 
 public class UserDetailsActivity extends AppCompatActivity implements LogoutResponse {
 
     private User user;
-    private static CarCustomAdapter adapter;
+    public static CarCustomAdapter adapter;
 
-    ListView carsListView;
+    public static ListView carsListView;
 
     private TextView welcome;
     private Button btnLogOut;
@@ -101,16 +97,17 @@ public class UserDetailsActivity extends AppCompatActivity implements LogoutResp
         adapter = new CarCustomAdapter(carsList,getApplicationContext());
         carsListView.setAdapter(adapter);
 
+        /*
         carsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 Car car= carsList.get(position);
 
-                Snackbar.make(view, car.getRegistrationNumber()+"\n"+car.getChasisNumber()+" API: "+car.getModel(), Snackbar.LENGTH_LONG)
+                Snackbar.make(view, car.getRegistrationNumber()+", "+car.getChasisNumber()+", "+car.getModel(), Snackbar.LENGTH_LONG)
                         .setAction("No action", null).show();
             }
-        });
+        });*/
     }
 
 
@@ -142,5 +139,12 @@ public class UserDetailsActivity extends AppCompatActivity implements LogoutResp
             Logout();
         else
             Toast.makeText(UserDetailsActivity.this, "Logout error! Server error "+result+"", Toast.LENGTH_LONG).show();
+    }
+
+    public void syncWithDatabase (){
+        // TODO sync cars with database
+
+
+
     }
 }

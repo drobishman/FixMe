@@ -42,18 +42,25 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center">
 
-    <Button
-        android:id="@+id/car_trouble_codes"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/lbl_car_tc" />
+        <Button
+            android:id="@+id/btn_car_trouble_codes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/lbl_car_tc" />
 
-    <Button
-        android:id="@+id/edit_car"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/lbl_edit_car"
-        android:layout_below="@+id/add_car"/>
+        <Button
+            android:id="@+id/btn_edit_car"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/lbl_edit_car"
+            android:layout_below="@+id/add_car"/>
+
+        <Button
+            android:id="@+id/btn_delete_car"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/lbl_delete_car"
+            android:layout_below="@+id/edit_car"/>
 
     </LinearLayout>
 
