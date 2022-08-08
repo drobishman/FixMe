@@ -4,7 +4,6 @@ package it.adrian.fixme.adapter;
 import static android.content.Context.MODE_PRIVATE;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,17 +16,23 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.function.Predicate;
 
 import it.adrian.fixme.R;
 import it.adrian.fixme.connection.DeleteCarAsyncTask;
 import it.adrian.fixme.connection.DeleteCarResponse;
+import it.adrian.fixme.connection.UserLoginAsyncTask;
 import it.adrian.fixme.model.Car;
 import it.adrian.fixme.model.User;
 import it.adrian.fixme.ui.AddCarActivity;
+import it.adrian.fixme.ui.LoginActivity;
 import it.adrian.fixme.ui.UserDetailsActivity;
 
 public class CarCustomAdapter extends ArrayAdapter<Car> implements DeleteCarResponse {
@@ -72,6 +77,8 @@ public class CarCustomAdapter extends ArrayAdapter<Car> implements DeleteCarResp
         final View result;
 
 
+
+
         SharedPreferences sharedPreferences = getContext().getSharedPreferences("myPreferences", 0);
         if (sharedPreferences.contains("user")) {
             final Gson gson = new Gson();
@@ -93,6 +100,7 @@ public class CarCustomAdapter extends ArrayAdapter<Car> implements DeleteCarResp
             viewHolder.carTroubleCodes = (Button) convertView.findViewById(R.id.btn_car_trouble_codes);
             viewHolder.editCar = (Button) convertView.findViewById(R.id.btn_edit_car);
             viewHolder.deleteCar =(Button) convertView.findViewById(R.id.btn_delete_car);
+            viewHolder.deleteCar.setTag(position);
 
             result=convertView;
 
@@ -134,14 +142,37 @@ public class CarCustomAdapter extends ArrayAdapter<Car> implements DeleteCarResp
             @Override
             public void onClick(View view) {
 
-                Toast.makeText(getContext(), "Delete car id: "+ dataModel.getId(), Toast.LENGTH_LONG).show();
-
+                // delete car from database
                 Thread.currentThread().setContextClassLoader(getClass().getClassLoader());
                 DeleteCarAsyncTask addCarAsyncTask = new DeleteCarAsyncTask(dataModel.getId());
                 addCarAsyncTask.response = CarCustomAdapter.this;
                 addCarAsyncTask.execute();
 
+                // delete car from view
+                Integer index = (Integer) view.getTag();
+                dataSet.remove(index.intValue());
                 notifyDataSetChanged();
+
+                // delete car from shared preferences
+                for (Iterator<Car> carIterator = user.getUserCars().iterator(); carIterator.hasNext(); ) {
+                    Car car = carIterator.next();
+                    if(car.equals(dataModel)){
+                        user.getUserCars().remove(car);
+                    }
+                }
+
+                final Gson gson = new Gson();
+                String serializedObject = gson.toJson(user);
+                Log.d("CarCustomAdapter",serializedObject);
+
+
+                if (shp == null)
+                    shp = getContext().getSharedPreferences("myPreferences", MODE_PRIVATE);
+                shpEditor = shp.edit();
+                shpEditor.putString("user", serializedObject);
+                shpEditor.commit();
+
+                Toast.makeText(getContext(), "Deleted car id: "+ dataModel.getId(), Toast.LENGTH_LONG).show();
 
             }
         });

@@ -143,8 +143,5 @@ public class UserDetailsActivity extends AppCompatActivity implements LogoutResp
 
     public void syncWithDatabase (){
         // TODO sync cars with database
-
-
-
     }
 }

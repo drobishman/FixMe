@@ -60,4 +60,11 @@ public class Car implements Serializable {
     public void setCarTroubleCodes(Set<TroubleCode> troubleCodes) {
         this.troubleCodes = troubleCodes;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(id.equals(((Car) obj).getId()))
+        return true;
+        else return false;
+    }
 }
