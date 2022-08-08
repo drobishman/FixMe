@@ -16,6 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+
         <activity
             android:name=".ui.LoginActivity"
             android:exported="true">
@@ -30,7 +31,8 @@
         <activity android:name=".ui.UserDetailsActivity" />
         <activity android:name=".ui.RegisterActivity" />
         <activity android:name=".ui.UpdateActivity" />
-        <activity android:name=".ui.AddCarActivity"/>
+        <activity android:name=".ui.AddCarActivity" />
+        <activity android:name=".ui.UpdateCarActivity"/>
     </application>
 
 </manifest>

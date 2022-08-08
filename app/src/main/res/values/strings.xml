@@ -56,5 +56,7 @@
     <string name="lbl_brand">Enter car\'s brand</string>
     <string name="btn_add_car">Add car</string>
     <string name="lbl_delete_car">Delete</string>
+    <string name="lbl_model">Enter model</string>
+    <string name="btn_edit_car">Edit Car</string>
 </resources>
 

@@ -92,10 +92,6 @@ public class AddCarActivity extends AppCompatActivity implements AddCarResponse 
                         car.setBrand(brand.getText().toString());
                         car.setModel(model.getText().toString());
 
-                        Log.d("AddNewCar", user.getSsoId()+" "+car.toString());
-
-                        user.getUserCars().add(car);
-
                         Thread.currentThread().setContextClassLoader(getClass().getClassLoader());
                         AddCarAsyncTask addCarAsyncTask = new AddCarAsyncTask(AddCarActivity.this,
                                 user.getSsoId(),
@@ -106,23 +102,7 @@ public class AddCarActivity extends AppCompatActivity implements AddCarResponse 
                         addCarAsyncTask.response = AddCarActivity.this;
                         addCarAsyncTask.execute();
 
-                        try {
-                            if (shp == null)
-                                shp = getSharedPreferences("myPreferences", MODE_PRIVATE);
 
-                            final Gson gson = new Gson();
-                            String serializedObject = gson.toJson(user);
-                            shpEditor = shp.edit();
-                            shpEditor.putString("user", serializedObject);
-                            shpEditor.commit();
-
-
-                            Intent myIntent = new Intent(AddCarActivity.this, UserDetailsActivity.class);
-                            //myIntent.putExtra("key", user); //Optional parameters
-                            AddCarActivity.this.startActivity(myIntent);
-                        } catch (Exception ex) {
-                            Toast.makeText(AddCarActivity.this, "Something went wrong", Toast.LENGTH_LONG).show();
-                        }
                     }
                 }
             });
@@ -140,6 +120,31 @@ public class AddCarActivity extends AppCompatActivity implements AddCarResponse 
 
     @Override
     public void taskResult(String result) {
+
+        try {
+            car.setId(Integer.parseInt(result));
+        } catch (Exception e) {
+            Toast.makeText(AddCarActivity.this, "Id not set!", Toast.LENGTH_LONG).show();
+        }
+        user.getUserCars().add(car);
+
+        try {
+            if (shp == null)
+                shp = getSharedPreferences("myPreferences", MODE_PRIVATE);
+
+            final Gson gson = new Gson();
+            String serializedObject = gson.toJson(user);
+            shpEditor = shp.edit();
+            shpEditor.putString("user", serializedObject);
+            shpEditor.commit();
+
+
+            Intent myIntent = new Intent(AddCarActivity.this, UserDetailsActivity.class);
+            //myIntent.putExtra("key", user); //Optional parameters
+            AddCarActivity.this.startActivity(myIntent);
+        } catch (Exception ex) {
+            Toast.makeText(AddCarActivity.this, "Something went wrong", Toast.LENGTH_LONG).show();
+        }
 
         Toast.makeText(getApplicationContext(),""+result+"",Toast.LENGTH_LONG).show();
 

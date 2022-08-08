@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/info_chasis_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:textColor="#D32F2F" />
+
+        <EditText
+            android:id="@+id/txt_chasis_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:background="@android:drawable/editbox_background_normal"
+            android:hint="@string/lbl_chasis_number"
+            android:padding="12dp" />
+
+        <TextView
+            android:id="@+id/info_registration_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:textColor="#D32F2F" />
+
+        <EditText
+            android:id="@+id/txt_registration_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:background="@android:drawable/editbox_background_normal"
+            android:hint="@string/lbl_registration_number"
+            android:padding="12dp" />
+
+        <TextView
+            android:id="@+id/info_brand"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:textColor="#D32F2F" />
+
+        <EditText
+            android:id="@+id/txt_brand"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:background="@android:drawable/editbox_background_normal"
+            android:hint="@string/lbl_brand"
+            android:padding="12dp" />
+
+        <TextView
+            android:id="@+id/info_model"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:textColor="#D32F2F" />
+
+        <EditText
+            android:id="@+id/txt_model"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:background="@android:drawable/editbox_background_normal"
+            android:hint="@string/lbl_model"
+            android:padding="12dp" />
+
+        <Button
+            android:id="@+id/btn_edit_car"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="5dp"
+            android:background="#567d46"
+            android:text="@string/btn_edit_car"
+            android:textColor="#fff" />
+
+    </LinearLayout>
+</RelativeLayout>

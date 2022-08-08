@@ -26,13 +26,14 @@ public class UserDetailsActivity extends AppCompatActivity implements LogoutResp
 
     private User user;
     public static CarCustomAdapter adapter;
-
     public static ListView carsListView;
 
     private TextView welcome;
     private Button btnLogOut;
     private Button btnEditUser;
     private Button btnAddCar;
+
+    private ArrayList<Car> carsList;
 
     SharedPreferences shp;
     SharedPreferences.Editor shpEditor;
@@ -91,9 +92,7 @@ public class UserDetailsActivity extends AppCompatActivity implements LogoutResp
         });
 
         carsListView = (ListView) findViewById(R.id.cars_listView);
-
-        ArrayList<Car> carsList = new ArrayList<>(user.getUserCars());
-
+        carsList = new ArrayList<>(user.getUserCars());
         adapter = new CarCustomAdapter(carsList,getApplicationContext());
         carsListView.setAdapter(adapter);
 
@@ -141,7 +140,45 @@ public class UserDetailsActivity extends AppCompatActivity implements LogoutResp
             Toast.makeText(UserDetailsActivity.this, "Logout error! Server error "+result+"", Toast.LENGTH_LONG).show();
     }
 
-    public void syncWithDatabase (){
-        // TODO sync cars with database
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        SharedPreferences sharedPreferences = this.getSharedPreferences("myPreferences", 0);
+        if (sharedPreferences.contains("user")) {
+            final Gson gson = new Gson();
+
+            Log.d("UserDetails", sharedPreferences.getString("user", "").toString());
+
+            user = gson.fromJson(sharedPreferences.getString("user", ""), User.class);
+
+            carsList = new ArrayList<>(user.getUserCars());
+
+            adapter.notifyDataSetChanged();
+
+            Toast.makeText(UserDetailsActivity.this, "On resume started", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    @Override
+    public void onPause() {
+
+        super.onPause();
+
+
+        SharedPreferences sharedPreferences = this.getSharedPreferences("myPreferences", 0);
+        if (sharedPreferences.contains("user")) {
+            final Gson gson = new Gson();
+
+            Log.d("UserDetails", sharedPreferences.getString("user", "").toString());
+
+            user = gson.fromJson(sharedPreferences.getString("user", ""), User.class);
+
+            carsList = new ArrayList<>(user.getUserCars());
+
+            adapter.notifyDataSetChanged();
+
+            Toast.makeText(UserDetailsActivity.this, "On pause started", Toast.LENGTH_LONG).show();
+        }
     }
 }

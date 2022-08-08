@@ -3,7 +3,9 @@ package it.adrian.fixme.adapter;
 
 import static android.content.Context.MODE_PRIVATE;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -33,6 +35,7 @@ import it.adrian.fixme.model.Car;
 import it.adrian.fixme.model.User;
 import it.adrian.fixme.ui.AddCarActivity;
 import it.adrian.fixme.ui.LoginActivity;
+import it.adrian.fixme.ui.UpdateCarActivity;
 import it.adrian.fixme.ui.UserDetailsActivity;
 
 public class CarCustomAdapter extends ArrayAdapter<Car> implements DeleteCarResponse {
@@ -127,7 +130,14 @@ public class CarCustomAdapter extends ArrayAdapter<Car> implements DeleteCarResp
         viewHolder.editCar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getContext(), "Edit car button" + dataModel.getId(), Toast.LENGTH_LONG).show();
+                if(dataModel.getId() == null) {
+                    Toast.makeText(getContext(), "Can't delete now. Id: " + dataModel.getId(), Toast.LENGTH_LONG).show();
+                } else {
+                    Intent myIntent = new Intent(getContext(), UpdateCarActivity.class);
+                    myIntent.putExtra("key", dataModel); //Optional parameters
+                    myIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    getContext().startActivity(myIntent);
+                }
             }
         });
 
@@ -142,38 +152,42 @@ public class CarCustomAdapter extends ArrayAdapter<Car> implements DeleteCarResp
             @Override
             public void onClick(View view) {
 
-                // delete car from database
-                Thread.currentThread().setContextClassLoader(getClass().getClassLoader());
-                DeleteCarAsyncTask addCarAsyncTask = new DeleteCarAsyncTask(dataModel.getId());
-                addCarAsyncTask.response = CarCustomAdapter.this;
-                addCarAsyncTask.execute();
+                if(dataModel.getId() == null){
+                    Toast.makeText(getContext(), "Can't delete now. Id: " + dataModel.getId(), Toast.LENGTH_LONG).show();
+                }else {
 
-                // delete car from view
-                Integer index = (Integer) view.getTag();
-                dataSet.remove(index.intValue());
-                notifyDataSetChanged();
+                    // delete car from database
+                    Thread.currentThread().setContextClassLoader(getClass().getClassLoader());
+                    DeleteCarAsyncTask addCarAsyncTask = new DeleteCarAsyncTask(dataModel.getId());
+                    addCarAsyncTask.response = CarCustomAdapter.this;
+                    addCarAsyncTask.execute();
 
-                // delete car from shared preferences
-                for (Iterator<Car> carIterator = user.getUserCars().iterator(); carIterator.hasNext(); ) {
-                    Car car = carIterator.next();
-                    if(car.equals(dataModel)){
-                        user.getUserCars().remove(car);
+                    // delete car from view
+                    Integer index = (Integer) view.getTag();
+                    dataSet.remove(index.intValue());
+                    notifyDataSetChanged();
+
+                    // delete car from shared preferences
+                    for (Iterator<Car> carIterator = user.getUserCars().iterator(); carIterator.hasNext(); ) {
+                        Car car = carIterator.next();
+                        if (car.equals(dataModel)) {
+                            user.getUserCars().remove(car);
+                        }
                     }
+
+                    final Gson gson = new Gson();
+                    String serializedObject = gson.toJson(user);
+                    Log.d("CarCustomAdapter", serializedObject);
+
+
+                    if (shp == null)
+                        shp = getContext().getSharedPreferences("myPreferences", MODE_PRIVATE);
+                    shpEditor = shp.edit();
+                    shpEditor.putString("user", serializedObject);
+                    shpEditor.commit();
+
+                    Toast.makeText(getContext(), "Deleted car id: " + dataModel.getId(), Toast.LENGTH_LONG).show();
                 }
-
-                final Gson gson = new Gson();
-                String serializedObject = gson.toJson(user);
-                Log.d("CarCustomAdapter",serializedObject);
-
-
-                if (shp == null)
-                    shp = getContext().getSharedPreferences("myPreferences", MODE_PRIVATE);
-                shpEditor = shp.edit();
-                shpEditor.putString("user", serializedObject);
-                shpEditor.commit();
-
-                Toast.makeText(getContext(), "Deleted car id: "+ dataModel.getId(), Toast.LENGTH_LONG).show();
-
             }
         });
 
