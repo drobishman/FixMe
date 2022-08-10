@@ -155,30 +155,6 @@ public class UserDetailsActivity extends AppCompatActivity implements LogoutResp
             carsList = new ArrayList<>(user.getUserCars());
 
             adapter.notifyDataSetChanged();
-
-            Toast.makeText(UserDetailsActivity.this, "On resume started", Toast.LENGTH_LONG).show();
-        }
-    }
-
-    @Override
-    public void onPause() {
-
-        super.onPause();
-
-
-        SharedPreferences sharedPreferences = this.getSharedPreferences("myPreferences", 0);
-        if (sharedPreferences.contains("user")) {
-            final Gson gson = new Gson();
-
-            Log.d("UserDetails", sharedPreferences.getString("user", "").toString());
-
-            user = gson.fromJson(sharedPreferences.getString("user", ""), User.class);
-
-            carsList = new ArrayList<>(user.getUserCars());
-
-            adapter.notifyDataSetChanged();
-
-            Toast.makeText(UserDetailsActivity.this, "On pause started", Toast.LENGTH_LONG).show();
         }
     }
 }

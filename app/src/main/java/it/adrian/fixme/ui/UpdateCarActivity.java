@@ -46,6 +46,7 @@ public class UpdateCarActivity extends AppCompatActivity implements UpdateCarRes
         setContentView(R.layout.activity_update_car);
 
         car = (Car) getIntent().getSerializableExtra("key");
+
         SharedPreferences sharedPreferences = this.getSharedPreferences("myPreferences", 0);
         if (sharedPreferences.contains("user")) {
             final Gson gson = new Gson();
@@ -64,6 +65,11 @@ public class UpdateCarActivity extends AppCompatActivity implements UpdateCarRes
         infoRegistrationNumber = (TextView) findViewById(R.id.info_registration_number);
         infoBrand = (TextView) findViewById(R.id.info_brand);
         infoModel = (TextView) findViewById(R.id.info_model);
+
+        chasisNumber.setText(car.getChasisNumber());
+        registrationNumber.setText(car.getRegistrationNumber());
+        brand.setText(car.getBrand());
+        model.setText(car.getModel());
 
         editCar = (Button) findViewById(R.id.btn_edit_car);
 
@@ -91,7 +97,6 @@ public class UpdateCarActivity extends AppCompatActivity implements UpdateCarRes
                     car.setBrand(brand.getText().toString());
                     car.setModel(model.getText().toString());
 
-
                     // update in database
                     Thread.currentThread().setContextClassLoader(getClass().getClassLoader());
                     UpdateCarAsyncTask updateCarAsyncTask = new UpdateCarAsyncTask(UpdateCarActivity.this,
@@ -103,18 +108,18 @@ public class UpdateCarActivity extends AppCompatActivity implements UpdateCarRes
                     updateCarAsyncTask.response = UpdateCarActivity.this;
                     updateCarAsyncTask.execute();
 
-                    // TODO update in view
-
+                    Car tempCar = new Car();
 
                     // update in shared preferences
                     for (Iterator<Car> carIterator = user.getUserCars().iterator(); carIterator.hasNext(); ) {
                         Car iCar = carIterator.next();
                         if (iCar.equals(car)) {
-                            Toast.makeText(getApplicationContext(), "EQUALS id: " + car.getId(), Toast.LENGTH_LONG).show();
-                            user.getUserCars().remove(iCar); // equals check only if ID are the same
-                            user.getUserCars().add(car); // add the car with changed parameters
+                            tempCar=iCar;
                         }
                     }
+
+                    user.getUserCars().remove(tempCar); // equals check only if ID are the same
+                    user.getUserCars().add(car); // add the car with changed parameters
 
                     final Gson gson = new Gson();
                     String serializedObject = gson.toJson(user);
@@ -127,7 +132,10 @@ public class UpdateCarActivity extends AppCompatActivity implements UpdateCarRes
                     shpEditor.putString("user", serializedObject);
                     shpEditor.commit();
 
-                    Toast.makeText(getApplicationContext(), "Edited car id: " + car.getId(), Toast.LENGTH_LONG).show();
+                    //update in view
+
+
+                    Toast.makeText(getApplicationContext(), "Edited car id: " + car.getId() +" "+ car.getRegistrationNumber(), Toast.LENGTH_LONG).show();
 
                     finish();
 
@@ -146,8 +154,5 @@ public class UpdateCarActivity extends AppCompatActivity implements UpdateCarRes
     @Override
     public void taskResult(String result) {
         Toast.makeText(this, result, Toast.LENGTH_LONG).show();
-
-
-
     }
 }

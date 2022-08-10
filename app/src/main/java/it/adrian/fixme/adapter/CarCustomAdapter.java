@@ -96,10 +96,12 @@ public class CarCustomAdapter extends ArrayAdapter<Car> implements DeleteCarResp
             viewHolder = new ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(getContext());
             convertView = inflater.inflate(R.layout.car_view, parent, false);
+
             viewHolder.registrationNumber = (TextView) convertView.findViewById(R.id.registration_number);
             viewHolder.chasisNumber = (TextView) convertView.findViewById(R.id.chasis_number);
             viewHolder.brand = (TextView) convertView.findViewById(R.id.brand);
             viewHolder.model = (TextView) convertView.findViewById(R.id.model);
+
             viewHolder.carTroubleCodes = (Button) convertView.findViewById(R.id.btn_car_trouble_codes);
             viewHolder.editCar = (Button) convertView.findViewById(R.id.btn_edit_car);
             viewHolder.deleteCar =(Button) convertView.findViewById(R.id.btn_delete_car);
@@ -137,6 +139,11 @@ public class CarCustomAdapter extends ArrayAdapter<Car> implements DeleteCarResp
                     myIntent.putExtra("key", dataModel); //Optional parameters
                     myIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     getContext().startActivity(myIntent);
+                    try {
+                        ((UserDetailsActivity) getContext()).finish();
+                    } catch (Exception e){
+                        e.printStackTrace();
+                    }
                 }
             }
         });
