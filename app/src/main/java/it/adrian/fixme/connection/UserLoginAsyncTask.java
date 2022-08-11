@@ -100,6 +100,8 @@ public class UserLoginAsyncTask extends AsyncTask<String, String, String> {
                     car.setChasisNumber(jCar.getString("chasisNumber"));
                     car.setBrand(jCar.getString("brand"));
                     car.setModel(jCar.getString("model"));
+
+                    /* no need at this point trouble codes.
                     JSONArray jTroubleCodes = jCar.getJSONArray("troubleCodes");
                     for (int i = 0; i < jTroubleCodes.length(); i++) {
                         JSONObject jTroubleCode = jTroubleCodes.getJSONObject(i);
@@ -110,6 +112,8 @@ public class UserLoginAsyncTask extends AsyncTask<String, String, String> {
                         troubleCodesSet.add(troubleCode);
                     }
                     car.setCarTroubleCodes(troubleCodesSet);
+                     */
+
                     carSet.add(car);
                 }
                 user.setUserCars(carSet);

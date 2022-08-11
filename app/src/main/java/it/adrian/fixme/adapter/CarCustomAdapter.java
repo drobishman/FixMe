@@ -152,6 +152,8 @@ public class CarCustomAdapter extends ArrayAdapter<Car> implements DeleteCarResp
             @Override
             public void onClick(View view) {
                 Toast.makeText(getContext(), "Car trouble codes button"+ dataModel.getId(), Toast.LENGTH_LONG).show();
+                //TODO finish to create adapter and Activity for troubleCodes and AsyncTask for server(Already functional)
+                //{"registrationNumber":"SJ21CTM","troubleCodes":[{"number":"P1200","faultLocation":"unknown","id":1790,"job":"Something done"}],"carId":48}
             }
         });
 

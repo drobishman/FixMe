@@ -101,8 +101,8 @@ public class UpdateCarActivity extends AppCompatActivity implements UpdateCarRes
                     Thread.currentThread().setContextClassLoader(getClass().getClassLoader());
                     UpdateCarAsyncTask updateCarAsyncTask = new UpdateCarAsyncTask(UpdateCarActivity.this,
                             car.getId(),
-                            registrationNumber.getText().toString(),
                             chasisNumber.getText().toString(),
+                            registrationNumber.getText().toString(),
                             brand.getText().toString(),
                             model.getText().toString());
                     updateCarAsyncTask.response = UpdateCarActivity.this;

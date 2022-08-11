@@ -58,5 +58,6 @@
     <string name="lbl_delete_car">Delete</string>
     <string name="lbl_model">Enter model</string>
     <string name="btn_edit_car">Edit Car</string>
+    <string name="btn_check">Check for error codes</string>
 </resources>
 

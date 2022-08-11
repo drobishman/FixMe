@@ -11,7 +11,7 @@ public class Car implements Serializable {
     private String chasisNumber;
     private String brand;
     private String model;
-    private Set<TroubleCode> troubleCodes = new HashSet<TroubleCode>();
+    //private Set<TroubleCode> troubleCodes = new HashSet<TroubleCode>();
 
     public Integer getId() {
         return id;
@@ -53,13 +53,13 @@ public class Car implements Serializable {
         this.model = model;
     }
 
-    public Set<TroubleCode> getTroubleCodes() {
+    /*public Set<TroubleCode> getTroubleCodes() {
         return troubleCodes;
     }
 
     public void setCarTroubleCodes(Set<TroubleCode> troubleCodes) {
         this.troubleCodes = troubleCodes;
-    }
+    }*/
 
     @Override
     public boolean equals(Object obj) {

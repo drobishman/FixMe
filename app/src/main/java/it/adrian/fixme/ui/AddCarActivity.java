@@ -95,8 +95,8 @@ public class AddCarActivity extends AppCompatActivity implements AddCarResponse 
                         Thread.currentThread().setContextClassLoader(getClass().getClassLoader());
                         AddCarAsyncTask addCarAsyncTask = new AddCarAsyncTask(AddCarActivity.this,
                                 user.getSsoId(),
-                                registrationNumber.getText().toString(),
                                 chasisNumber.getText().toString(),
+                                registrationNumber.getText().toString(),
                                 brand.getText().toString(),
                                 model.getText().toString());
                         addCarAsyncTask.response = AddCarActivity.this;
