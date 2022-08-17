@@ -34,6 +34,7 @@ import it.adrian.fixme.connection.UserLoginAsyncTask;
 import it.adrian.fixme.model.Car;
 import it.adrian.fixme.model.User;
 import it.adrian.fixme.ui.AddCarActivity;
+import it.adrian.fixme.ui.CarTroubleCodesActivity;
 import it.adrian.fixme.ui.LoginActivity;
 import it.adrian.fixme.ui.UpdateCarActivity;
 import it.adrian.fixme.ui.UserDetailsActivity;
@@ -154,6 +155,10 @@ public class CarCustomAdapter extends ArrayAdapter<Car> implements DeleteCarResp
                 Toast.makeText(getContext(), "Car trouble codes button"+ dataModel.getId(), Toast.LENGTH_LONG).show();
                 //TODO finish to create adapter and Activity for troubleCodes and AsyncTask for server(Already functional)
                 //{"registrationNumber":"SJ21CTM","troubleCodes":[{"number":"P1200","faultLocation":"unknown","id":1790,"job":"Something done"}],"carId":48}
+                Intent myIntent = new Intent(getContext(), CarTroubleCodesActivity.class);
+                myIntent.putExtra("key", dataModel); //Optional parameters
+                myIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                getContext().startActivity(myIntent);
             }
         });
 

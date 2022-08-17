@@ -33,6 +33,7 @@ import java.util.List;
 import java.util.Set;
 
 import it.adrian.fixme.R;
+import it.adrian.fixme.model.Car;
 import it.adrian.fixme.tb.BTDeviceHelper;
 import it.adrian.fixme.obd.ObdHelper;
 
@@ -49,6 +50,7 @@ public class RequestActivity extends AppCompatActivity {
     private Boolean test = false;
     private ObdHelper obdHelper;
     private Spinner deviceTestSpinner;
+    private Car car;
 
     private String chosenDevice;
     private String chosenLanguage;
@@ -81,6 +83,8 @@ public class RequestActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_request);
         c = this.getApplicationContext();
+
+        car = (Car) getIntent().getSerializableExtra("key");
 
         int bluetoothStatus;
 
@@ -253,8 +257,11 @@ public class RequestActivity extends AppCompatActivity {
         Intent intent = new Intent(c, ResponseActivity.class);
         Bundle extras = new Bundle();
 
+        Log.d("RequestActivity",dtcs);
+
         extras.putString("EXTRA_DTCS", dtcs);
         intent.putExtras(extras);
+        intent.putExtra("key", car);
         startActivity(intent);
         resetAcitivityState();
     }

@@ -59,5 +59,6 @@
     <string name="lbl_model">Enter model</string>
     <string name="btn_edit_car">Edit Car</string>
     <string name="btn_check">Check for error codes</string>
+    <string name="add_tccar">Add Trouble Code to this car</string>
 </resources>
 

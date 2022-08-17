@@ -17,5 +17,12 @@
         android:textSize="14sp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+    
+    <Button
+        android:id="@+id/btn_add_tccar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/add_tccar"/>
+
 
 </LinearLayout>
