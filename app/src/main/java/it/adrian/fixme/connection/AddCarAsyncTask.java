@@ -40,7 +40,7 @@ public class AddCarAsyncTask extends AsyncTask<String, String, String> {
     @Override
     protected String doInBackground(String... strings) {
 
-        String stringUrl = "http://dcvideo.go.ro:8763/fixitweb/android/addcar?" +
+        String stringUrl = "http://dchomekit.go.ro:8763/fixitweb/android/addcar?" +
                 "ssoId="+usr+
                 "&registrationNumber="+registrationNumber+
                 "&chasisNumber="+chasisNumber+

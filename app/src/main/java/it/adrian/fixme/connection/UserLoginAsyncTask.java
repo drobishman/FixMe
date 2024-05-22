@@ -38,7 +38,7 @@ public class UserLoginAsyncTask extends AsyncTask<String, String, String> {
     @Override
     protected String doInBackground(String... strings) {
 
-        String stringUrl = "http://dcvideo.go.ro:8763/fixitweb/android//login?ssoId="+ssoId+"&password="+password+"";
+        String stringUrl = "http://dchomekit.go.ro:8763/fixitweb/android//login?ssoId="+ssoId+"&password="+password+"";
 
         Log.d(TAG, "making get request:" + stringUrl);
 

@@ -33,7 +33,7 @@ public class ViewCarTroubleCodesAsyncTask extends AsyncTask<String, String, Stri
 
     @Override
     protected String doInBackground(String... strings) {
-        String stringUrl = "http://dcvideo.go.ro:8763/fixitweb/android/viewtccar?carId=" + carId + "";
+        String stringUrl = "http://dchomekit.go.ro:8763/fixitweb/android/viewtccar?carId=" + carId + "";
 
         Log.d(TAG, "making get request:" + stringUrl);
 

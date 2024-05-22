@@ -1,5 +1,5 @@
 <component name="libraryTable">
-  <library name="Gradle: com.github.pires:obd-java-api:1.0-RC16">
+  <library name="Gradle: com.github.pires:obd-java-api:1.0-RC16" external-system-id="GRADLE">
     <CLASSES>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.pires/obd-java-api/1.0-RC16/143a49a7635f3437067384ad9fb433cc292ee81/obd-java-api-1.0-RC16.jar!/" />
     </CLASSES>

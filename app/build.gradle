@@ -19,6 +19,7 @@ android {
     buildFeatures {
         viewBinding true
     }
+    namespace 'it.adrian.fixme'
 }
 
 

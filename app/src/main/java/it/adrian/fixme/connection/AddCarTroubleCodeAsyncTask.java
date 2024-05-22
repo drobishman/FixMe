@@ -29,7 +29,7 @@ public class AddCarTroubleCodeAsyncTask extends AsyncTask<String, String, String
 
     @Override
     protected String doInBackground(String... strings) {
-        String stringUrl = "http://dcvideo.go.ro:8763/fixitweb/android/addtccar?" +
+        String stringUrl = "http://dchomekit.go.ro:8763/fixitweb/android/addtccar?" +
                 "&id="+id+
                 "&number="+number+"";
 

@@ -25,7 +25,7 @@ public class DeleteCarAsyncTask extends AsyncTask<String, String, String> {
 
     @Override
     protected String doInBackground(String... strings) {
-        String stringUrl = "http://dcvideo.go.ro:8763/fixitweb/android/deletecar?" +
+        String stringUrl = "http://dchomekit.go.ro:8763/fixitweb/android/deletecar?" +
                 "id="+id+"";
 
         Log.d(TAG, "making get request:" + stringUrl);

@@ -39,7 +39,7 @@ public class UpdateAsyncTask extends AsyncTask<String, String, String> {
     @Override
     protected String doInBackground(String... strings) {
 
-        String stringUrl = "http://dcvideo.go.ro:8763/fixitweb/android/update?ssoId="+usr+"&password="+psw+"&firstName="+fName+"&lastName="+lName+"&email="+email+"";
+        String stringUrl = "http://dchomekit.go.ro:8763/fixitweb/android/update?ssoId="+usr+"&password="+psw+"&firstName="+fName+"&lastName="+lName+"&email="+email+"";
 
         Log.d(TAG, "making get request:" + stringUrl);
 
