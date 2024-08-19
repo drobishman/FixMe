@@ -8,6 +8,8 @@ public class TroubleCode implements Serializable {
     public String number;
     public int id;
     public String job;
+    public float lon;
+    public float lat;
 
     public String getJob() {
         return job;
@@ -39,6 +41,22 @@ public class TroubleCode implements Serializable {
 
     public void setFaultLocation(String faultLocation) {
         this.faultLocation = faultLocation;
+    }
+
+    public float getLon() {
+        return lon;
+    }
+
+    public void setLon(float lon) {
+        this.lon = lon;
+    }
+
+    public float getLat() {
+        return lat;
+    }
+
+    public void setLat(float lat) {
+        this.lat = lat;
     }
 
 }

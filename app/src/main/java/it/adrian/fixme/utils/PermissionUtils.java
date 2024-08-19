@@ -39,6 +39,18 @@ public class PermissionUtils {
             permissionsToAsk.add(Manifest.permission.BLUETOOTH_SCAN);
         }
 
+        if (ContextCompat.checkSelfPermission(activity.getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) !=
+                PackageManager.PERMISSION_GRANTED) {
+            // Ask for permission
+            permissionsToAsk.add(Manifest.permission.ACCESS_COARSE_LOCATION);
+        }
+
+        if (ContextCompat.checkSelfPermission(activity.getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) !=
+                PackageManager.PERMISSION_GRANTED) {
+            // Ask for permission
+            permissionsToAsk.add(Manifest.permission.ACCESS_FINE_LOCATION);
+        }
+
         if (permissionsToAsk.size() > 0) {
             ActivityCompat.requestPermissions(activity, permissionsToAsk.toArray(new String[permissionsToAsk.size()]), requestResult);
         }

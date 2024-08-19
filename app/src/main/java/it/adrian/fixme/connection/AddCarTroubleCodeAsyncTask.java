@@ -3,6 +3,7 @@ package it.adrian.fixme.connection;
 import static android.content.ContentValues.TAG;
 
 import android.app.Activity;
+import android.location.Location;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -20,18 +21,24 @@ public class AddCarTroubleCodeAsyncTask extends AsyncTask<String, String, String
 
     public int id;
     public String number;
+    public Location location;
 
-    public AddCarTroubleCodeAsyncTask (int id, String number){
+    public AddCarTroubleCodeAsyncTask (int id, String number, Location location){
 
         this.id = id;
         this.number = number;
+        this.location = location;
+
     }
 
     @Override
     protected String doInBackground(String... strings) {
         String stringUrl = "http://dchomekit.go.ro:8763/fixitweb/android/addtccar?" +
                 "&id="+id+
-                "&number="+number+"";
+                "&number="+number+
+                "&lon="+location.getLongitude()+
+                "&lat="+location.getLatitude()+"";
+
 
         Log.d(TAG, "making get request:" + stringUrl);
 

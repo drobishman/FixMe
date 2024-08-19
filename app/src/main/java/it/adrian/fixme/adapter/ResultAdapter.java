@@ -2,6 +2,7 @@ package it.adrian.fixme.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.location.Location;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,12 +30,14 @@ public class ResultAdapter extends ArrayAdapter<String> implements AddCarTrouble
     private Context context;
     private ArrayList<String> values;
     private Car car;
+    private Location location;
 
-    public ResultAdapter(Context context, ArrayList<String> values, Car car) {
+    public ResultAdapter(Context context, ArrayList<String> values, Car car, Location location) {
         super(context, -1, values);
         this.context = context;
         this.values = values;
         this.car = car;
+        this.location = location;
     }
 
     @Override
@@ -69,9 +72,8 @@ public class ResultAdapter extends ArrayAdapter<String> implements AddCarTrouble
                 public void onClick(View view) {
                     Toast.makeText(getContext(),"Content:" + vals[0],Toast.LENGTH_LONG).show();
 
-                    //add TC to current car
                     Thread.currentThread().setContextClassLoader(getClass().getClassLoader());
-                    AddCarTroubleCodeAsyncTask addCarTroubleCodeAsyncTask = new AddCarTroubleCodeAsyncTask(car.getId(), vals[0]);
+                    AddCarTroubleCodeAsyncTask addCarTroubleCodeAsyncTask = new AddCarTroubleCodeAsyncTask(car.getId(), vals[0], location);
                     addCarTroubleCodeAsyncTask.response = ResultAdapter.this;
                     addCarTroubleCodeAsyncTask.execute();
 
